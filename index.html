@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Cá Nhân</title>
+    <!-- Google Fonts & Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --card-bg: #161b22;
+            --accent-cyan: #00f2fe;
+            --accent-purple: #4facfe;
+            --text-main: #f0f6fc;
+            --text-muted: #8b949e;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Canvas Particle Background */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Header / Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.2rem 8%;
+            background: rgba(13, 17, 23, 0.8);
+            backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--accent-cyan);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            gap: 4rem;
+        }
+
+        .hero-text {
+            max-width: 600px;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            color: var(--accent-cyan);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.8rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title span {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-role {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-desc {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-size: 1.05rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-primary {
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: #000;
+            font-weight: 700;
+            text-decoration: none;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 242, 254, 0.3);
+        }
+
+        .btn-outline {
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(0, 242, 254, 0.05);
+        }
+
+        /* Social Icons */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-cyan);
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+        }
+
+        /* Avatar Box with Glowing Border */
+        .hero-img-wrap {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            padding: 8px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            box-shadow: 0 0 50px rgba(0, 242, 254, 0.2);
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--bg-color);
+        }
+
+        /* Shared Section Styles */
+        section {
+            padding: 6rem 8%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 2.3rem;
+            margin: 0.4rem 0;
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 850px) {
+            .hero {
+                flex-direction: column-reverse;
+                text-align: center;
+                justify-content: center;
+                padding-top: 8rem;
+            }
+            .hero-btns, .social-links {
+                justify-content: center;
+            }
+            nav ul {
+                display: none; /* Rút gọn trên mobile */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas hạt nền động -->
+    <canvas id="particles"></canvas>
+
+    <!-- Navigation -->
+    <header>
+        <a href="#home" class="logo">PORT<span>FOLIO</span></a>
+        <nav>
+            <ul>
+                <li><a href="#home">Trang chủ</a></li>
+                <li><a href="#about">Giới thiệu</a></li>
+                <li><a href="#skills">Kỹ năng</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-text">
+            <div class="hero-subtitle">XIN CHÀO, TÔI LÀ</div>
+            <h1 class="hero-title">NGUYỄN<br><span>TIẾN VŨ</span></h1>
+            <div class="hero-role">GIÁO VIÊN</div>
+            <p class="hero-desc">
+                Đam mê Toán học, công nghệ và trí tuệ nhân tạo. Luôn tìm kiếm giải pháp ứng dụng công nghệ để nâng cao chất lượng học tập và giảng dạy.
+            </p>
+            <div class="hero-btns">
+                <a href="#about" class="btn-primary">Xem về tôi</a>
+                <a href="#contact" class="btn-outline">Liên hệ</a>
+            </div>
+            <div class="social-links">
+                <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://github.com" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="mailto:email@example.com" title="Email"><i class="fas fa-envelope"></i></a>
+                <a href="https://zalo.me" target="_blank" title="Zalo"><i class="fas fa-comment-dots"></i></a>
+            </div>
+        </div>
+
+        <div class="hero-img-wrap">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80" alt="Avatar" class="hero-img">
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="section-header">
+            <div class="section-tag">WHAT I DO</div>
+            <h2 class="section-title">Kỹ năng</h2>
+            <p class="section-subtitle">Những lĩnh vực tôi quan tâm và sử dụng thường xuyên</p>
+        </div>
+
+        <div class="skills-grid">
+            <div class="skill-card">
+                <div class="skill-info">
+                    <h4>Toán học</h4>
+                    <span>95%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 95%;"></div></div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-info">
+                    <h4>Trí tuệ nhân tạo (AI)</h4>
+                    <span>90%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-info">
+                    <h4>LaTeX & TikZ</h4>
+                    <span>88%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 88%;"></div></div>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-info">
+                    <h4>Web Development</h4>
+                    <span>80%</span>
+                </div>
+                <div class="progress-bar"><div class="progress-fill" style="width: 80%;"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Particle Script -->
+    <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        for (let i = 0; i < 40; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                vx: (Math.random() - 0.5) * 0.4,
+                vy: (Math.random() - 0.5) * 0.4
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(0, 242, 254, 0.4)';
+
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                p.x += p.vx;
+                p.y += p.vy;
+
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+            });
+
+            requestAnimationFrame(draw);
+        }
+        draw();
+    </script>
+</body>
+</html>
